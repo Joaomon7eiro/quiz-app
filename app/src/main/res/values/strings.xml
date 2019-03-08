@@ -1,16 +1,16 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">SurveyApp</string>
     <string name="current_question">Questão Numero: <xliff:g id="question_number">%s</xliff:g>/10</string>
-    <string name="question_one">Na foto acima havia uma ser vivo a mais. Selecione a resposta correta:</string>
+    <string name="question_one">Selecione as alternativas verdadeiras sobre a foto acima:</string>
     <string name="question_two">No evento em que participava o Gabriel houve um incidente terrivel. Selecione a resposta correta:</string>
     <string name="confirm">confirmar resposta</string>
     <string name="next">próxima questão</string>
     <string name="result">ver resultado</string>
     <string name="image_description">Question image</string>
-    <string name="q1_answer1">Roberto</string>
-    <string name="q1_answer2">Vikito</string>
-    <string name="q1_answer3">Deus</string>
-    <string name="q1_answer4">Não falta ninguem</string>
+    <string name="q1_answer1">Vituxo quebrou o taco</string>
+    <string name="q1_answer2">Era uma Sexta feira 13</string>
+    <string name="q1_answer3">Vikito estava presente</string>
+    <string name="q1_answer4">Uma Mulher que tirou a foto</string>
     <string name="q2_answer1">Só tocou Pablo Vittar</string>
     <string name="q2_answer2">Golden Shower</string>
     <string name="q2_answer3">Tiroteio</string>

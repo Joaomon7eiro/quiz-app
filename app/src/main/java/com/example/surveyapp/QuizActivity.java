@@ -4,7 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -12,7 +14,7 @@ import android.widget.Toast;
 
 
 public class QuizActivity extends AppCompatActivity {
-    RadioGroup mAnswers1;
+    LinearLayout mAnswers1;
     RadioGroup mAnswers2;
     Button mActionButton;
     TextView mQuestionText;
@@ -43,23 +45,23 @@ public class QuizActivity extends AppCompatActivity {
                 mActionButton.setText(getString(R.string.next));
                 mActionButton.setOnClickListener(nextQuestion);
             }
+            mCurrentQuestionNumber++;
         }
     };
 
     View.OnClickListener nextQuestion = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            mCurrentQuestionNumber++;
             switch (mCurrentQuestionNumber) {
                 case 2:
-                    findViewById(R.id.q1_answers).setVisibility(View.GONE);
+                    mAnswers1.setVisibility(View.GONE);
+                    inactiveActionButton();
                     setQuestionTwo();
                     break;
                 default:
             }
             mCurrentQuestion.setText(getString(R.string.current_question, String.valueOf(mCurrentQuestionNumber)));
             mActionButton.setText(getString(R.string.confirm));
-            inactiveActionButton();
         }
     };
 
@@ -85,8 +87,6 @@ public class QuizActivity extends AppCompatActivity {
 
         mAnswers1 = findViewById(R.id.q1_answers);
         mAnswers2 = findViewById(R.id.q2_answers);
-
-        mAnswers1.setOnCheckedChangeListener(radioGroupOnCheckedChange);
         mAnswers2.setOnCheckedChangeListener(radioGroupOnCheckedChange);
 
         mQuestionText = findViewById(R.id.question_text);
@@ -95,7 +95,7 @@ public class QuizActivity extends AppCompatActivity {
         mCurrentQuestion = findViewById(R.id.current_question);
 
         mCurrentQuestion.setText(getString(R.string.current_question, String.valueOf(mCurrentQuestionNumber)));
-        inactiveActionButton();
+        mActionButton.setOnClickListener(confirmAnswer);
     }
 
     private void inactiveActionButton() {
@@ -118,29 +118,31 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void handlerQuestionOneAnswer() {
-        RadioGroup mAnswers = findViewById(R.id.q1_answers);
-        RadioButton mAnswer1 = findViewById(R.id.q1_answer1);
-        RadioButton mAnswer2 = findViewById(R.id.q1_answer2);
-        RadioButton mAnswer3 = findViewById(R.id.q1_answer3);
-        RadioButton mAnswer4 = findViewById(R.id.q1_answer4);
+        CheckBox mAnswer1 = findViewById(R.id.q1_answer1);
+        CheckBox mAnswer2 = findViewById(R.id.q1_answer2);
+        CheckBox mAnswer3 = findViewById(R.id.q1_answer3);
+        CheckBox mAnswer4 = findViewById(R.id.q1_answer4);
 
-        int mCheckedRadioButtonId = mAnswers.getCheckedRadioButtonId();
-        RadioButton mCheckedRadioButton = findViewById(mCheckedRadioButtonId);
-
-        mAnswer1.setButtonTintList(getResources().getColorStateList(R.color.colorGray));
-        mAnswer2.setButtonTintList(getResources().getColorStateList(R.color.colorGreen));
-        mAnswer3.setButtonTintList(getResources().getColorStateList(R.color.colorGray));
-        mAnswer4.setButtonTintList(getResources().getColorStateList(R.color.colorGray));
-
-        mAnswer1.setTextColor(getResources().getColor(R.color.colorGray));
-        mAnswer2.setTextColor(getResources().getColor(R.color.colorGreen));
-        mAnswer3.setTextColor(getResources().getColor(R.color.colorGray));
-        mAnswer4.setTextColor(getResources().getColor(R.color.colorGray));
-
-        if (mCheckedRadioButtonId != R.id.q1_answer2) {
-            mCheckedRadioButton.setTextColor(getResources().getColor(R.color.colorRed));
-            mCheckedRadioButton.setButtonTintList(getResources().getColorStateList(R.color.colorRed));
+        if (mAnswer1.isChecked()) {
+            mAnswer1.setTextColor(getResources().getColor(R.color.colorRed));
+            mAnswer1.setButtonTintList(getResources().getColorStateList(R.color.colorRed));
         } else {
+            mAnswer1.setTextColor(getResources().getColor(R.color.colorGray));
+            mAnswer1.setButtonTintList(getResources().getColorStateList(R.color.colorGray));
+        }
+        if (mAnswer2.isChecked()) {
+            mAnswer2.setTextColor(getResources().getColor(R.color.colorRed));
+            mAnswer2.setButtonTintList(getResources().getColorStateList(R.color.colorRed));
+        } else {
+            mAnswer2.setTextColor(getResources().getColor(R.color.colorGray));
+            mAnswer2.setButtonTintList(getResources().getColorStateList(R.color.colorGray));
+        }
+        mAnswer3.setButtonTintList(getResources().getColorStateList(R.color.colorGreen));
+        mAnswer4.setButtonTintList(getResources().getColorStateList(R.color.colorGreen));
+        mAnswer3.setTextColor(getResources().getColor(R.color.colorGreen));
+        mAnswer4.setTextColor(getResources().getColor(R.color.colorGreen));
+
+        if (mAnswer3.isChecked() && mAnswer4.isChecked() && !mAnswer1.isChecked() && !mAnswer2.isChecked()) {
             mCorrectAnswers++;
         }
     }
