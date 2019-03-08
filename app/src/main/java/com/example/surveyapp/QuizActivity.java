@@ -2,9 +2,12 @@ package com.example.surveyapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -16,6 +19,7 @@ import android.widget.Toast;
 public class QuizActivity extends AppCompatActivity {
     LinearLayout mAnswers1;
     RadioGroup mAnswers2;
+    EditText mAnswer3;
     Button mActionButton;
     TextView mQuestionText;
     TextView mCurrentQuestion;
@@ -34,6 +38,9 @@ public class QuizActivity extends AppCompatActivity {
                     break;
                 case 2:
                     handlerQuestionTwoAnswer();
+                    break;
+                case 3:
+                    handlerQuestionThreeAnswer();
                     break;
                 default:
             }
@@ -57,6 +64,11 @@ public class QuizActivity extends AppCompatActivity {
                     mAnswers1.setVisibility(View.GONE);
                     inactiveActionButton();
                     setQuestionTwo();
+                    break;
+                case 3:
+                    mAnswers2.setVisibility(View.GONE);
+                    inactiveActionButton();
+                    setQuestionThree();
                     break;
                 default:
             }
@@ -88,6 +100,26 @@ public class QuizActivity extends AppCompatActivity {
         mAnswers1 = findViewById(R.id.q1_answers);
         mAnswers2 = findViewById(R.id.q2_answers);
         mAnswers2.setOnCheckedChangeListener(radioGroupOnCheckedChange);
+        mAnswer3 = findViewById(R.id.q3_answer);
+        mAnswer3.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (mAnswer3.getText().toString().equals("")){
+                    inactiveActionButton();
+                } else {
+                    activeActionButton();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
 
         mQuestionText = findViewById(R.id.question_text);
         mQuestionImage = findViewById(R.id.question_image);
@@ -114,7 +146,13 @@ public class QuizActivity extends AppCompatActivity {
     private void setQuestionTwo() {
         mQuestionText.setText(getString(R.string.question_two));
         mQuestionImage.setImageDrawable(getResources().getDrawable(R.drawable.question_2));
-        findViewById(R.id.q2_answers).setVisibility(View.VISIBLE);
+        mAnswers2.setVisibility(View.VISIBLE);
+    }
+
+    private void setQuestionThree() {
+        mQuestionText.setText(getString(R.string.question_two));
+        mQuestionImage.setImageDrawable(getResources().getDrawable(R.drawable.question_2));
+        mAnswer3.setVisibility(View.VISIBLE);
     }
 
     private void handlerQuestionOneAnswer() {
@@ -173,6 +211,18 @@ public class QuizActivity extends AppCompatActivity {
         } else {
             mCorrectAnswers++;
         }
+    }
+
+    private void handlerQuestionThreeAnswer() {
+        if (mAnswer3.getText().toString().equals("teste")) {
+            mAnswer3.setBackgroundTintList(getResources().getColorStateList(R.color.colorGreen));
+            mAnswer3.setTextColor(getResources().getColor(R.color.colorGreen));
+            mCorrectAnswers++;
+        } else {
+            mAnswer3.setBackgroundTintList(getResources().getColorStateList(R.color.colorRed));
+            mAnswer3.setTextColor(getResources().getColor(R.color.colorRed));
+        }
+
     }
 
     @Override
