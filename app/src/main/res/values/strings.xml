@@ -3,6 +3,19 @@
     <string name="current_question">Questão Numero: <xliff:g id="question_number">%s</xliff:g>/10</string>
     <string name="question_one">Na foto acima havia uma ser vivo a mais. Selecione a resposta correta:</string>
     <string name="question_two">No evento em que participava o Gabriel houve um incidente terrivel. Selecione a resposta correta:</string>
-    <string name="confirm_button">confirmar resposta</string>
-    <string name="next_button">próxima questão</string>
+    <string name="confirm">confirmar resposta</string>
+    <string name="next">próxima questão</string>
+    <string name="result">ver resultado</string>
+    <string name="image_description">Question image</string>
+    <string name="q1_answer1">Roberto</string>
+    <string name="q1_answer2">Vikito</string>
+    <string name="q1_answer3">Deus</string>
+    <string name="q1_answer4">Não falta ninguem</string>
+    <string name="q2_answer1">Só tocou Pablo Vittar</string>
+    <string name="q2_answer2">Golden Shower</string>
+    <string name="q2_answer3">Tiroteio</string>
+    <string name="q2_answer4">Não tocou pagode</string>
+    <string name="main_title">Será que você conhece os BIRI MIGOS?</string>
+    <string name="start_quiz">iniciar teste</string>
+    <string name="refuse_message">Vair voltar não safado</string>
 </resources>
