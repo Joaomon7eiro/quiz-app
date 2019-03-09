@@ -3,6 +3,9 @@
     <string name="current_question">Questão Numero: <xliff:g id="question_number">%s</xliff:g>/10</string>
     <string name="question_one">Selecione as alternativas verdadeiras sobre a foto acima:</string>
     <string name="question_two">No evento em que participava o Gabriel houve um incidente terrivel. Selecione a resposta correta:</string>
+    <string name="question_three">Quem é o autor da frase: "Meu gato ta quebrado, como concerta?"</string>
+    <string name="question_four">João se parece com Rami Malik?</string>
+    <string name="question_five">Quem é o pintor da pintura acima?</string>
     <string name="confirm">confirmar resposta</string>
     <string name="next">próxima questão</string>
     <string name="result">ver resultado</string>
@@ -15,7 +18,24 @@
     <string name="q2_answer2">Golden Shower</string>
     <string name="q2_answer3">Tiroteio</string>
     <string name="q2_answer4">Não tocou pagode</string>
+    <string name="q3_answer">roberto</string>
+    <string name="q4_answer1">Sim</string>
+    <string name="q4_answer2">Não</string>
+    <string name="q5_answer1">Monique Van Altero</string>
+    <string name="q5_answer2">Victor</string>
+    <string name="q5_answer3">Jão</string>
+    <string name="q5_answer4">Leonardo da Vintramontini</string>
     <string name="main_title">Será que você conhece os BIRI MIGOS?</string>
     <string name="start_quiz">iniciar teste</string>
     <string name="refuse_message">Vair voltar não safado</string>
+    <string name="results_title">Seu resultado: <xliff:g id="results_number">%s</xliff:g>/5</string>
+    <string name="share">Compartilhar</string>
+    <string name="home">Início</string>
+    <string name="result_very_bad">"Você é um lixo, vai ter que pagar salgado pra todo mundo"</string>
+    <string name="result_bad">Horrível, não merece ficar no grupo</string>
+    <string name="result_almost_normal">Horrível, não merece ficar no grupo</string>
+    <string name="result_normal">Padrão ne, não le grupo cusão</string>
+    <string name="result_good">Boa, merece ficar no grupo</string>
+    <string name="result_very_good">God demais, quem tirar pior nota paga salgado pra você</string>
+
 </resources>

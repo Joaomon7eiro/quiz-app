@@ -134,12 +134,72 @@
         </RadioGroup>
 
         <EditText
+            android:inputType="textPersonName"
             android:gravity="center_horizontal"
             android:backgroundTint="@color/colorSecondary"
             android:id="@+id/q3_answer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone" />
+
+
+        <RadioGroup
+            android:id="@+id/q4_answers"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <RadioButton
+                android:id="@+id/q4_answer1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/q4_answer1"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/q4_answer2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/q4_answer2"
+                android:textSize="16sp" />
+
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/q5_answers"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <RadioButton
+                android:id="@+id/q5_answer1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/q5_answer1"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/q5_answer2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/q5_answer2"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/q5_answer3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/q5_answer3"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/q5_answer4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/q5_answer4"
+                android:textSize="16sp" />
+
+        </RadioGroup>
     </LinearLayout>
 
     <Button

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/colorPrimary"
+    android:layout_height="match_parent"
+    tools:context=".ResultsActivity">
+
+    <TextView
+        android:id="@+id/results"
+        android:gravity="center"
+        android:textSize="32sp"
+        android:layout_margin="32dp"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/results_title" />
+
+    <ImageView
+        android:id="@+id/result_image"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:scaleType="centerCrop"
+        android:layout_below="@id/results"
+        tools:srcCompat="@tools:sample/avatars[2]" />
+
+    <TextView
+        android:background="@color/colorSecondary"
+        android:id="@+id/text_result"
+        android:padding="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:textSize="18sp"
+        android:layout_below="@id/result_image"/>
+
+    <RatingBar
+        android:id="@+id/rating"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/text_result"
+        android:layout_width="wrap_content"
+        android:numStars="5"
+        android:isIndicator="true"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/share"
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:background="@drawable/rounded_button"
+        android:layout_below="@id/rating"
+        android:textColor="@android:color/white"
+        android:text="@string/share"/>
+
+    <Button
+        android:id="@+id/home"
+        android:textColor="@android:color/white"
+        android:layout_margin="32dp"
+        android:background="@drawable/rounded_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/home"/>
+</RelativeLayout>

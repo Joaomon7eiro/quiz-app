@@ -1,5 +1,6 @@
 package com.example.surveyapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -20,6 +21,8 @@ public class QuizActivity extends AppCompatActivity {
     LinearLayout mAnswers1;
     RadioGroup mAnswers2;
     EditText mAnswer3;
+    RadioGroup mAnswers4;
+    RadioGroup mAnswers5;
     Button mActionButton;
     TextView mQuestionText;
     TextView mCurrentQuestion;
@@ -27,7 +30,9 @@ public class QuizActivity extends AppCompatActivity {
 
     int mCurrentQuestionNumber = 1;
     int mCorrectAnswers = 0;
-    static final int TOTAL_OF_QUESTIONS = 10;
+    static final int TOTAL_OF_QUESTIONS = 5;
+
+    public static final String CORRECT_ANSWERS = "correct_answers";
 
     View.OnClickListener confirmAnswer = new View.OnClickListener() {
         @Override
@@ -41,6 +46,12 @@ public class QuizActivity extends AppCompatActivity {
                     break;
                 case 3:
                     handlerQuestionThreeAnswer();
+                    break;
+                case 4:
+                    handlerQuestionFourAnswer();
+                    break;
+                case 5:
+                    handlerQuestionFiveAnswer();
                     break;
                 default:
             }
@@ -70,6 +81,15 @@ public class QuizActivity extends AppCompatActivity {
                     inactiveActionButton();
                     setQuestionThree();
                     break;
+                case 4:
+                    mAnswer3.setVisibility(View.GONE);
+                    inactiveActionButton();
+                    setQuestionFour();
+                    break;
+                case 5:
+                    mAnswers4.setVisibility(View.GONE);
+                    inactiveActionButton();
+                    setQuestionFive();
                 default:
             }
             mCurrentQuestion.setText(getString(R.string.current_question, String.valueOf(mCurrentQuestionNumber)));
@@ -80,8 +100,9 @@ public class QuizActivity extends AppCompatActivity {
     View.OnClickListener showResults = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            // TODO: implement results
-            Toast.makeText(getApplication(), "Mostrar resultados", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(getApplication(), ResultsActivity.class);
+            intent.putExtra(CORRECT_ANSWERS, mCorrectAnswers);
+            startActivity(intent);
         }
     };
 
@@ -89,6 +110,26 @@ public class QuizActivity extends AppCompatActivity {
         @Override
         public void onCheckedChanged(RadioGroup group, int checkedId) {
             activeActionButton();
+        }
+    };
+
+    TextWatcher editTextTextWatch = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            if (mAnswer3.getText().toString().equals("")){
+                inactiveActionButton();
+            } else {
+                activeActionButton();
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
         }
     };
 
@@ -101,25 +142,11 @@ public class QuizActivity extends AppCompatActivity {
         mAnswers2 = findViewById(R.id.q2_answers);
         mAnswers2.setOnCheckedChangeListener(radioGroupOnCheckedChange);
         mAnswer3 = findViewById(R.id.q3_answer);
-        mAnswer3.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (mAnswer3.getText().toString().equals("")){
-                    inactiveActionButton();
-                } else {
-                    activeActionButton();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
+        mAnswer3.addTextChangedListener(editTextTextWatch);
+        mAnswers4 = findViewById(R.id.q4_answers);
+        mAnswers4.setOnCheckedChangeListener(radioGroupOnCheckedChange);
+        mAnswers5 = findViewById(R.id.q5_answers);
+        mAnswers5.setOnCheckedChangeListener(radioGroupOnCheckedChange);
 
         mQuestionText = findViewById(R.id.question_text);
         mQuestionImage = findViewById(R.id.question_image);
@@ -150,9 +177,21 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void setQuestionThree() {
-        mQuestionText.setText(getString(R.string.question_two));
-        mQuestionImage.setImageDrawable(getResources().getDrawable(R.drawable.question_2));
+        mQuestionText.setText(getString(R.string.question_three));
+        mQuestionImage.setImageDrawable(getResources().getDrawable(R.drawable.question_3));
         mAnswer3.setVisibility(View.VISIBLE);
+    }
+
+    private void setQuestionFour(){
+        mQuestionText.setText(getString(R.string.question_four));
+        mQuestionImage.setImageDrawable(getResources().getDrawable(R.drawable.question_4));
+        mAnswers4.setVisibility(View.VISIBLE);
+    }
+
+    private void setQuestionFive(){
+        mQuestionText.setText(getString(R.string.question_five));
+        mQuestionImage.setImageDrawable(getResources().getDrawable(R.drawable.question_5));
+        mAnswers5.setVisibility(View.VISIBLE);
     }
 
     private void handlerQuestionOneAnswer() {
@@ -186,13 +225,12 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void handlerQuestionTwoAnswer() {
-        RadioGroup mAnswers = findViewById(R.id.q2_answers);
         RadioButton mAnswer1 = findViewById(R.id.q2_answer1);
         RadioButton mAnswer2 = findViewById(R.id.q2_answer2);
         RadioButton mAnswer3 = findViewById(R.id.q2_answer3);
         RadioButton mAnswer4 = findViewById(R.id.q2_answer4);
 
-        int mCheckedRadioButtonId = mAnswers.getCheckedRadioButtonId();
+        int mCheckedRadioButtonId = mAnswers2.getCheckedRadioButtonId();
         RadioButton mCheckedRadioButton = findViewById(mCheckedRadioButtonId);
 
         mAnswer1.setButtonTintList(getResources().getColorStateList(R.color.colorGray));
@@ -205,7 +243,7 @@ public class QuizActivity extends AppCompatActivity {
         mAnswer3.setTextColor(getResources().getColor(R.color.colorGreen));
         mAnswer4.setTextColor(getResources().getColor(R.color.colorGray));
 
-        if (mCheckedRadioButtonId != R.id.q2_answer3) {
+        if (mCheckedRadioButton != mAnswer3) {
             mCheckedRadioButton.setTextColor(getResources().getColor(R.color.colorRed));
             mCheckedRadioButton.setButtonTintList(getResources().getColorStateList(R.color.colorRed));
         } else {
@@ -214,7 +252,8 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void handlerQuestionThreeAnswer() {
-        if (mAnswer3.getText().toString().equals("teste")) {
+        String answer = getString(R.string.q3_answer);
+        if (mAnswer3.getText().toString().toLowerCase().equals(answer.toLowerCase())) {
             mAnswer3.setBackgroundTintList(getResources().getColorStateList(R.color.colorGreen));
             mAnswer3.setTextColor(getResources().getColor(R.color.colorGreen));
             mCorrectAnswers++;
@@ -222,7 +261,53 @@ public class QuizActivity extends AppCompatActivity {
             mAnswer3.setBackgroundTintList(getResources().getColorStateList(R.color.colorRed));
             mAnswer3.setTextColor(getResources().getColor(R.color.colorRed));
         }
+    }
 
+    private void handlerQuestionFourAnswer() {
+        RadioButton mAnswer1 = findViewById(R.id.q4_answer1);
+        RadioButton mAnswer2 = findViewById(R.id.q4_answer2);
+
+        int mCheckedRadioButtonId = mAnswers4.getCheckedRadioButtonId();
+        RadioButton mCheckedRadioButton = findViewById(mCheckedRadioButtonId);
+
+        mAnswer2.setTextColor(getResources().getColor(R.color.colorGreen));
+        mAnswer2.setButtonTintList(getResources().getColorStateList(R.color.colorGreen));
+
+        if (mCheckedRadioButton == mAnswer1) {
+            mAnswer1.setTextColor(getResources().getColor(R.color.colorRed));
+            mAnswer1.setButtonTintList(getResources().getColorStateList(R.color.colorRed));
+        } else {
+            mAnswer1.setTextColor(getResources().getColor(R.color.colorGray));
+            mAnswer1.setButtonTintList(getResources().getColorStateList(R.color.colorGray));
+            mCorrectAnswers++;
+        }
+    }
+
+    private void handlerQuestionFiveAnswer() {
+        RadioButton mAnswer1 = findViewById(R.id.q5_answer1);
+        RadioButton mAnswer2 = findViewById(R.id.q5_answer2);
+        RadioButton mAnswer3 = findViewById(R.id.q5_answer3);
+        RadioButton mAnswer4 = findViewById(R.id.q5_answer4);
+
+        int mCheckedRadioButtonId = mAnswers5.getCheckedRadioButtonId();
+        RadioButton mCheckedRadioButton = findViewById(mCheckedRadioButtonId);
+
+        mAnswer1.setButtonTintList(getResources().getColorStateList(R.color.colorGreen));
+        mAnswer2.setButtonTintList(getResources().getColorStateList(R.color.colorGray));
+        mAnswer3.setButtonTintList(getResources().getColorStateList(R.color.colorGray));
+        mAnswer4.setButtonTintList(getResources().getColorStateList(R.color.colorGray));
+
+        mAnswer1.setTextColor(getResources().getColor(R.color.colorGreen));
+        mAnswer2.setTextColor(getResources().getColor(R.color.colorGray));
+        mAnswer3.setTextColor(getResources().getColor(R.color.colorGray));
+        mAnswer4.setTextColor(getResources().getColor(R.color.colorGray));
+
+        if (mCheckedRadioButton != mAnswer1) {
+            mCheckedRadioButton.setTextColor(getResources().getColor(R.color.colorRed));
+            mCheckedRadioButton.setButtonTintList(getResources().getColorStateList(R.color.colorRed));
+        } else {
+            mCorrectAnswers++;
+        }
     }
 
     @Override
