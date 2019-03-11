@@ -31,6 +31,7 @@ public class QuizActivity extends AppCompatActivity {
     int mCurrentQuestionNumber = 1;
     int mCorrectAnswers = 0;
     static final int TOTAL_OF_QUESTIONS = 5;
+    boolean mActionButtonIsClickable = true;
 
     public static final String CORRECT_ANSWERS = "correct_answers";
 
@@ -55,7 +56,7 @@ public class QuizActivity extends AppCompatActivity {
                     break;
                 default:
             }
-            Toast.makeText(getApplication(), "Total de acertos " + mCorrectAnswers + "/10", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplication(), "Total de acertos " + mCorrectAnswers + "/5", Toast.LENGTH_LONG).show();
             if (mCurrentQuestionNumber == TOTAL_OF_QUESTIONS) {
                 mActionButton.setText(getString(R.string.result));
                 mActionButton.setOnClickListener(showResults);
@@ -63,13 +64,13 @@ public class QuizActivity extends AppCompatActivity {
                 mActionButton.setText(getString(R.string.next));
                 mActionButton.setOnClickListener(nextQuestion);
             }
-            mCurrentQuestionNumber++;
         }
     };
 
     View.OnClickListener nextQuestion = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            mCurrentQuestionNumber++;
             switch (mCurrentQuestionNumber) {
                 case 2:
                     mAnswers1.setVisibility(View.GONE);
@@ -109,7 +110,10 @@ public class QuizActivity extends AppCompatActivity {
     RadioGroup.OnCheckedChangeListener radioGroupOnCheckedChange = new RadioGroup.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(RadioGroup group, int checkedId) {
-            activeActionButton();
+            if (mActionButton.getText().toString().equals(getString(R.string.confirm))){
+                activeActionButton();
+            }
+
         }
     };
 
@@ -121,17 +125,30 @@ public class QuizActivity extends AppCompatActivity {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if (mAnswer3.getText().toString().equals("")){
-                inactiveActionButton();
-            } else {
-                activeActionButton();
-            }
+
         }
 
         @Override
         public void afterTextChanged(Editable s) {
+            if (mCurrentQuestionNumber == 3) {
+                if (mAnswer3.getText().toString().equals("")) {
+                    inactiveActionButton();
+                } else {
+                    activeActionButton();
+                }
+            }
         }
     };
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("CURRENT_QUESTION", mCurrentQuestionNumber);
+        outState.putString("ACTION_BUTTON_TEXT", mActionButton.getText().toString());
+        outState.putBoolean("ACTION_BUTTON_IS_CLICKABLE", mActionButtonIsClickable);
+        outState.putInt("CORRECT_ANSWERS", mCorrectAnswers);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,17 +170,63 @@ public class QuizActivity extends AppCompatActivity {
         mActionButton = findViewById(R.id.actions_button);
         mCurrentQuestion = findViewById(R.id.current_question);
 
+        if (savedInstanceState != null) {
+            mCurrentQuestionNumber = savedInstanceState.getInt("CURRENT_QUESTION");
+            mCorrectAnswers = savedInstanceState.getInt("CORRECT_ANSWERS");
+            mActionButtonIsClickable = savedInstanceState.getBoolean("ACTION_BUTTON_IS_CLICKABLE");
+            String mActionButtonText = savedInstanceState.getString("ACTION_BUTTON_TEXT");
+            mActionButton.setText(mActionButtonText);
+
+            if (mActionButtonIsClickable) {
+                activeActionButton();
+            } else {
+                inactiveActionButton();
+            }
+
+            switch (mCurrentQuestionNumber) {
+                case 2:
+                    mAnswers1.setVisibility(View.GONE);
+                    setQuestionTwo();
+                    break;
+                case 3:
+                    mAnswers1.setVisibility(View.GONE);
+                    mAnswers2.setVisibility(View.GONE);
+                    setQuestionThree();
+                    break;
+                case 4:
+                    mAnswers1.setVisibility(View.GONE);
+                    mAnswers2.setVisibility(View.GONE);
+                    mAnswer3.setVisibility(View.GONE);
+                    setQuestionFour();
+                    break;
+                case 5:
+                    mAnswers1.setVisibility(View.GONE);
+                    mAnswers2.setVisibility(View.GONE);
+                    mAnswer3.setVisibility(View.GONE);
+                    mAnswers4.setVisibility(View.GONE);
+                    setQuestionFive();
+                default:
+            }
+            if (mActionButtonText.equals(getString(R.string.confirm))) {
+                mActionButton.setOnClickListener(confirmAnswer);
+            } else {
+                mActionButton.setOnClickListener(nextQuestion);
+            }
+        } else {
+            mActionButton.setOnClickListener(confirmAnswer);
+        }
         mCurrentQuestion.setText(getString(R.string.current_question, String.valueOf(mCurrentQuestionNumber)));
-        mActionButton.setOnClickListener(confirmAnswer);
     }
 
     private void inactiveActionButton() {
+        mActionButtonIsClickable = false;
         mActionButton.setClickable(false);
         mActionButton.setTextColor(getResources().getColor(android.R.color.black));
         mActionButton.setBackgroundResource(R.drawable.inactive_rounded_button);
     }
 
     private void activeActionButton() {
+        mActionButtonIsClickable = true;
         mActionButton.setClickable(true);
         mActionButton.setTextColor(getResources().getColor(android.R.color.white));
         mActionButton.setBackgroundResource(R.drawable.rounded_button);
@@ -182,13 +245,13 @@ public class QuizActivity extends AppCompatActivity {
         mAnswer3.setVisibility(View.VISIBLE);
     }
 
-    private void setQuestionFour(){
+    private void setQuestionFour() {
         mQuestionText.setText(getString(R.string.question_four));
         mQuestionImage.setImageDrawable(getResources().getDrawable(R.drawable.question_4));
         mAnswers4.setVisibility(View.VISIBLE);
     }
 
-    private void setQuestionFive(){
+    private void setQuestionFive() {
         mQuestionText.setText(getString(R.string.question_five));
         mQuestionImage.setImageDrawable(getResources().getDrawable(R.drawable.question_5));
         mAnswers5.setVisibility(View.VISIBLE);

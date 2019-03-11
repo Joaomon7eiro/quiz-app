@@ -1,6 +1,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">SurveyApp</string>
-    <string name="current_question">Questão Numero: <xliff:g id="question_number">%s</xliff:g>/10</string>
+    <string name="current_question">Questão Numero: <xliff:g id="question_number">%s</xliff:g>/5</string>
     <string name="question_one">Selecione as alternativas verdadeiras sobre a foto acima:</string>
     <string name="question_two">No evento em que participava o Gabriel houve um incidente terrivel. Selecione a resposta correta:</string>
     <string name="question_three">Quem é o autor da frase: "Meu gato ta quebrado, como concerta?"</string>
