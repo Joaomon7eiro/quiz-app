@@ -56,7 +56,8 @@ public class QuizActivity extends AppCompatActivity {
                     break;
                 default:
             }
-            Toast.makeText(getApplication(), "Total de acertos " + mCorrectAnswers + "/5", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplication(), "Total de acertos "
+                    + mCorrectAnswers + "/5", Toast.LENGTH_LONG).show();
             if (mCurrentQuestionNumber == TOTAL_OF_QUESTIONS) {
                 mActionButton.setText(getString(R.string.result));
                 mActionButton.setOnClickListener(showResults);
@@ -215,7 +216,8 @@ public class QuizActivity extends AppCompatActivity {
         } else {
             mActionButton.setOnClickListener(confirmAnswer);
         }
-        mCurrentQuestion.setText(getString(R.string.current_question, String.valueOf(mCurrentQuestionNumber)));
+        mCurrentQuestion.setText(getString(R.string.current_question,
+                String.valueOf(mCurrentQuestionNumber)));
     }
 
     private void inactiveActionButton() {
@@ -347,6 +349,7 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void handlerQuestionFiveAnswer() {
+        mQuestionImage.setImageDrawable(getDrawable(R.drawable.question_5b));
         RadioButton mAnswer1 = findViewById(R.id.q5_answer1);
         RadioButton mAnswer2 = findViewById(R.id.q5_answer2);
         RadioButton mAnswer3 = findViewById(R.id.q5_answer3);
@@ -375,10 +378,11 @@ public class QuizActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (mCurrentQuestionNumber == 1) {
+        if (mCurrentQuestionNumber == 1 && mActionButton.getText().toString()
+                .equals(getString(R.string.confirm))) {
             super.onBackPressed();
         } else {
-            Toast.makeText(getApplication(), getString(R.string.refuse_message), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplication(), getString(R.string.refuse_message), Toast.LENGTH_SHORT).show();
         }
     }
 }
