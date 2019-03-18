@@ -41,8 +41,8 @@ public class ResultsActivity extends AppCompatActivity {
         mRatingBar = findViewById(R.id.rating);
         mRatingBar.setRating(mCorrectAnswers);
 
-        final String mResultText = getResultText(mCorrectAnswers);
-        mResultTextView.setText(mResultText);
+        final String resultText = getResultText(mCorrectAnswers);
+        mResultTextView.setText(resultText);
         mResultImage.setImageDrawable(mResultImageDrawable);
 
         mShareButton = findViewById(R.id.share);
@@ -98,13 +98,12 @@ public class ResultsActivity extends AppCompatActivity {
                 mResultImageDrawable = getDrawable(R.drawable.r5);
                 return getString(R.string.result_very_good);
             default:
-                // TODO
                 return getString(R.string.result_very_bad);
         }
     }
 
     @Override
     public void onBackPressed() {
-
+        // do nothing
     }
 }
